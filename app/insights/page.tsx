@@ -6,8 +6,7 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { Send, Sparkles, Loader2, Home } from "lucide-react"
-import Link from "next/link"
+import { Send, Sparkles, Loader2, TrendingUp, Target, BarChart3, AlertCircle } from "lucide-react"
 
 interface Message {
   role: "user" | "assistant"
@@ -77,54 +76,99 @@ export default function InsightsPage() {
     }
   }
 
+  const handleQuestionClick = (question: string) => {
+    if (!isLoading) {
+      setInput(question)
+    }
+  }
+
+  const suggestedQuestions = [
+    {
+      icon: AlertCircle,
+      text: "What are the highest risk districts for malnutrition?",
+      color: "text-red-500"
+    },
+    {
+      icon: Target,
+      text: "What interventions are most effective for reducing stunting?",
+      color: "text-green-500"
+    },
+    {
+      icon: BarChart3,
+      text: "How does the data quality vary across provinces?",
+      color: "text-blue-500"
+    },
+    {
+      icon: TrendingUp,
+      text: "What are the main risk factors for malnutrition in Rwanda?",
+      color: "text-orange-500"
+    }
+  ]
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Sparkles className="w-6 h-6 text-primary" />
-              <div>
-                <h1 className="text-2xl font-bold text-balance">AI Insights</h1>
-                <p className="text-sm text-muted-foreground">Ask anything about NutriVision Rwanda data and analysis</p>
-              </div>
-            </div>
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/">
-                <Home className="w-4 h-4 mr-2" />
-                Home
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-[#005BAB] via-[#0078D4] to-[#E6E8EB]">
+      
 
       {/* Chat Container */}
-      <main className="container mx-auto px-4 py-6 max-w-4xl">
-        <Card className="flex flex-col h-[calc(100vh-200px)]">
+      <main className="container mx-auto px-6 py-8 max-w-6xl">
+        {/* Welcome Banner - Only show when no messages */}
+        {messages.length === 1 && (
+          <div className="mb-6 bg-white/95 backdrop-blur rounded-2xl shadow-lg p-8 border-l-4 border-[#005BAB]">
+            <div className="flex items-start gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#005BAB] to-[#0078D4] rounded-full flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Welcome to AI Insights</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  Get instant answers about nutrition data, district-level insights, risk assessments, 
+                  and evidence-based interventions. Our AI assistant is trained on comprehensive data 
+                  from NISR, DHS, HMIS, and Sentinel surveillance systems.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <Card className="flex flex-col bg-white/95 backdrop-blur shadow-2xl border-0 overflow-hidden">
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          <div className="overflow-y-auto p-6 space-y-6 min-h-[400px] max-h-[600px]">
             {messages.map((message, index) => (
               <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-[80%] rounded-lg px-4 py-3 ${
-                    message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
+                  className={`max-w-[90%] rounded-2xl px-6 py-4 shadow-md ${
+                    message.role === "user" 
+                      ? "bg-gradient-to-br from-[#005BAB] to-[#0078D4] text-white" 
+                      : "bg-gray-50 border border-gray-200"
                   }`}
                 >
-                  <div className="flex items-start gap-2">
-                    {message.role === "assistant" && <Sparkles className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />}
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                  <div className="flex items-start gap-3">
+                    {message.role === "assistant" && (
+                      <div className="w-8 h-8 bg-gradient-to-br from-[#005BAB] to-[#0078D4] rounded-full flex items-center justify-center flex-shrink-0">
+                        <Sparkles className="w-4 h-4 text-white" />
+                      </div>
+                    )}
+                    <p className={`text-base whitespace-pre-wrap leading-relaxed ${
+                      message.role === "user" ? "text-white" : "text-gray-800"
+                    }`}>
+                      {message.content}
+                    </p>
                   </div>
                 </div>
               </div>
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="max-w-[80%] rounded-lg px-4 py-3 bg-muted">
-                  <div className="flex items-center gap-2">
-                    <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                    <p className="text-sm text-muted-foreground">Thinking...</p>
+                <div className="max-w-[90%] rounded-2xl px-6 py-4 bg-gray-50 border border-gray-200 shadow-md">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-[#005BAB] to-[#0078D4] rounded-full flex items-center justify-center">
+                      <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    </div>
+                    <div className="flex gap-1">
+                      <span className="w-2 h-2 bg-[#005BAB] rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></span>
+                      <span className="w-2 h-2 bg-[#005BAB] rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></span>
+                      <span className="w-2 h-2 bg-[#005BAB] rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -132,71 +176,79 @@ export default function InsightsPage() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Form */}
-          <div className="border-t p-4">
-            <form onSubmit={handleSubmit} className="flex gap-2">
-              <Textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about nutrition data, risk analysis, interventions..."
-                className="min-h-[60px] max-h-[120px] resize-none"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault()
-                    handleSubmit(e)
-                  }
-                }}
-                disabled={isLoading}
-              />
+          {/* Input Area */}
+          <div className="border-t border-gray-200 bg-white p-6">
+            <div className="flex gap-3">
+              <div className="flex-1 relative">
+                <Textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask about nutrition data, risk analysis, interventions, or policy recommendations..."
+                  className="min-h-[70px] max-h-[140px] resize-none pr-4 border-2 border-gray-200 focus:border-[#005BAB] focus:ring-2 focus:ring-[#005BAB]/20 rounded-xl"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault()
+                      handleSubmit(e)
+                    }
+                  }}
+                  disabled={isLoading}
+                />
+              </div>
               <Button
-                type="submit"
+                onClick={handleSubmit}
                 size="icon"
-                className="h-[60px] w-[60px] flex-shrink-0"
+                className="h-[70px] w-[70px] flex-shrink-0 bg-gradient-to-br from-[#005BAB] to-[#0078D4] hover:from-[#004a8f] hover:to-[#0066bb] rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                 disabled={!input.trim() || isLoading}
               >
-                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                {isLoading ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send className="w-6 h-6" />}
               </Button>
-            </form>
-            <p className="text-xs text-muted-foreground mt-2 text-center">
-              Press Enter to send, Shift+Enter for new line
+            </div>
+            <p className="text-xs text-gray-500 mt-3 text-center">
+              Press <kbd className="px-2 py-1 bg-gray-100 rounded text-[#005BAB] font-semibold">Enter</kbd> to send • <kbd className="px-2 py-1 bg-gray-100 rounded text-[#005BAB] font-semibold">Shift + Enter</kbd> for new line
             </p>
           </div>
         </Card>
 
         {/* Suggested Questions */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Button
-            variant="outline"
-            className="h-auto py-3 text-left justify-start bg-transparent"
-            onClick={() => setInput("What are the highest risk districts for malnutrition?")}
-            disabled={isLoading}
-          >
-            <span className="text-sm">What are the highest risk districts for malnutrition?</span>
-          </Button>
-          <Button
-            variant="outline"
-            className="h-auto py-3 text-left justify-start bg-transparent"
-            onClick={() => setInput("What interventions are most effective for reducing stunting?")}
-            disabled={isLoading}
-          >
-            <span className="text-sm">What interventions are most effective for reducing stunting?</span>
-          </Button>
-          <Button
-            variant="outline"
-            className="h-auto py-3 text-left justify-start bg-transparent"
-            onClick={() => setInput("How does the data quality vary across provinces?")}
-            disabled={isLoading}
-          >
-            <span className="text-sm">How does the data quality vary across provinces?</span>
-          </Button>
-          <Button
-            variant="outline"
-            className="h-auto py-3 text-left justify-start bg-transparent"
-            onClick={() => setInput("What are the main risk factors for malnutrition in Rwanda?")}
-            disabled={isLoading}
-          >
-            <span className="text-sm">What are the main risk factors for malnutrition in Rwanda?</span>
-          </Button>
+        <div className="mt-8">
+          <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+            <Sparkles className="w-4 h-4" />
+            Suggested Questions
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {suggestedQuestions.map((question, index) => (
+              <div
+                key={index}
+                onClick={() => handleQuestionClick(question.text)}
+                className="bg-white/95 backdrop-blur rounded-xl p-4 text-left hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer group border border-gray-200"
+              >
+                <div className="flex items-start gap-3">
+                  <div className={`w-10 h-10 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center flex-shrink-0 group-hover:from-[#005BAB]/10 group-hover:to-[#0078D4]/10 transition-colors`}>
+                    <question.icon className={`w-5 h-5 ${question.color}`} />
+                  </div>
+                  <span className="text-sm text-gray-700 leading-relaxed group-hover:text-[#005BAB] transition-colors">
+                    {question.text}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Info Cards */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white/90 backdrop-blur rounded-xl p-4 border-l-4 border-blue-500">
+            <h4 className="font-semibold text-gray-800 mb-1 text-sm">Real-time Analysis</h4>
+            <p className="text-xs text-gray-600">Get instant insights from latest nutrition data</p>
+          </div>
+          <div className="bg-white/90 backdrop-blur rounded-xl p-4 border-l-4 border-green-500">
+            <h4 className="font-semibold text-gray-800 mb-1 text-sm">Evidence-based</h4>
+            <p className="text-xs text-gray-600">Recommendations backed by comprehensive datasets</p>
+          </div>
+          <div className="bg-white/90 backdrop-blur rounded-xl p-4 border-l-4 border-orange-500">
+            <h4 className="font-semibold text-gray-800 mb-1 text-sm">District-level Detail</h4>
+            <p className="text-xs text-gray-600">Granular insights across all 30 districts</p>
+          </div>
         </div>
       </main>
     </div>

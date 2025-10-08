@@ -5,6 +5,8 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
+import Footer from "../components/footer"
+import Header from "../components/header"
 
 export const metadata: Metadata = {
   title: "NutriVision Rwanda - Geospatial Early Warning System",
@@ -21,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <Suspense fallback={null}>{children}</Suspense>
+  <Header />
+  <Suspense fallback={null}>{children}</Suspense>
+        <Footer />
         <Analytics />
       </body>
     </html>

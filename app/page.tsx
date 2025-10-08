@@ -1,118 +1,104 @@
 import { MapView } from "@/components/map-view"
 import { StatsOverview } from "@/components/stats-overview"
 import { RiskChart } from "@/components/risk-chart"
-import { Button } from "@/components/ui/button"
-import { FileText, TrendingUp, Target, Database, Sparkles } from "lucide-react"
+import { FileText, TrendingUp, Target, MapPin, BarChart3 } from "lucide-react"
 import Link from "next/link"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-balance">NutriVision Rwanda</h1>
-              <p className="text-sm text-muted-foreground">Geospatial Early Warning & Decision Support System</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/insights">
-                  <Sparkles className="w-4 h-4 mr-2" />
-                  AI Insights
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/data-sources">
-                  <Database className="w-4 h-4 mr-2" />
-                  Data Sources
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/predictions">
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  Predictions
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/interventions">
-                  <Target className="w-4 h-4 mr-2" />
-                  Interventions
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/policy-briefs">
-                  <FileText className="w-4 h-4 mr-2" />
-                  Policy Briefs
-                </Link>
-              </Button>
-            </div>
+    <div className="min-h-screen bg-gradient-to-b from-[#005BAB] via-[#0078D4] to-[#E6E8EB]">
+    
+
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-16">
+        <div className="max-w-4xl mx-auto text-center space-y-6">
+          <h2 className="text-5xl font-bold text-white leading-tight">
+            Welcome to NutriVision Rwanda
+          </h2>
+          <p className="text-2xl text-blue-100 font-medium">
+            Smart Insights for a Healthier Rwanda
+          </p>
+          <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-8 text-left space-y-4">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              NutriVision Rwanda is a data-driven platform designed to identify and address hidden hunger across Rwanda. By combining national statistics, geospatial data, and predictive analytics, the system maps malnutrition hotspots, uncovers root causes, and recommends targeted interventions.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Through an interactive dashboard, decision-makers can explore district-level insights, track progress, and access evidence-based policy briefs that link health, agriculture, and education efforts.
+            </p>
           </div>
         </div>
-      </header>
+      </section>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-6 space-y-6">
+      <main className="container mx-auto px-6 pb-12 space-y-8">
         {/* Stats Overview */}
-        <StatsOverview />
+        <div className="bg-white/95 backdrop-blur rounded-xl shadow-lg p-6">
+          <StatsOverview />
+        </div>
 
         {/* Map and Chart Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Interactive Map */}
-          <div className="lg:col-span-2">
-            <div className="h-[600px]">
+          <div className="lg:col-span-2 bg-white/95 backdrop-blur rounded-xl shadow-lg p-4">
+            <div className="flex items-center gap-2 mb-4">
+              <MapPin className="w-5 h-5 text-[#005BAB]" />
+              <h3 className="text-lg font-semibold text-gray-800">Malnutrition Hotspot Map</h3>
+            </div>
+            <div className="h-[600px] rounded-lg overflow-hidden">
               <MapView />
             </div>
           </div>
 
           {/* Risk Chart */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 bg-white/95 backdrop-blur rounded-xl shadow-lg p-4">
+            <div className="flex items-center gap-2 mb-4">
+              <BarChart3 className="w-5 h-5 text-[#005BAB]" />
+              <h3 className="text-lg font-semibold text-gray-800">Risk Analysis</h3>
+            </div>
             <RiskChart />
           </div>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Button variant="outline" className="h-auto py-6 flex-col gap-2 bg-transparent" asChild>
-            <Link href="/predictions">
-              <TrendingUp className="w-8 h-8 text-primary" />
-              <div className="text-center">
-                <div className="font-semibold">View Predictions</div>
-                <div className="text-xs text-muted-foreground">ML-powered risk forecasts</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white/95 backdrop-blur rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 border-t-4 border-[#005BAB]">
+            <Link href="/predictions" className="block text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#005BAB] to-[#0078D4] rounded-full flex items-center justify-center mx-auto">
+                <TrendingUp className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">View Predictions</h3>
+                <p className="text-sm text-gray-600">ML-powered risk forecasts for early intervention planning</p>
               </div>
             </Link>
-          </Button>
-          <Button variant="outline" className="h-auto py-6 flex-col gap-2 bg-transparent" asChild>
-            <Link href="/interventions">
-              <Target className="w-8 h-8 text-primary" />
-              <div className="text-center">
-                <div className="font-semibold">Recommended Interventions</div>
-                <div className="text-xs text-muted-foreground">Prioritized by impact & feasibility</div>
+          </div>
+
+          <div className="bg-white/95 backdrop-blur rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 border-t-4 border-[#005BAB]">
+            <Link href="/interventions" className="block text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#005BAB] to-[#0078D4] rounded-full flex items-center justify-center mx-auto">
+                <Target className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">Recommended Interventions</h3>
+                <p className="text-sm text-gray-600">Prioritized strategies by impact and feasibility</p>
               </div>
             </Link>
-          </Button>
-          <Button variant="outline" className="h-auto py-6 flex-col gap-2 bg-transparent" asChild>
-            <Link href="/policy-briefs">
-              <FileText className="w-8 h-8 text-primary" />
-              <div className="text-center">
-                <div className="font-semibold">Generate Policy Brief</div>
-                <div className="text-xs text-muted-foreground">Sector-specific recommendations</div>
+          </div>
+
+          <div className="bg-white/95 backdrop-blur rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 border-t-4 border-[#005BAB]">
+            <Link href="/policy-briefs" className="block text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#005BAB] to-[#0078D4] rounded-full flex items-center justify-center mx-auto">
+                <FileText className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">Generate Policy Brief</h3>
+                <p className="text-sm text-gray-600">Sector-specific evidence-based recommendations</p>
               </div>
             </Link>
-          </Button>
+          </div>
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t mt-12">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <p>Last updated: {new Date().toLocaleDateString()}</p>
-            <p>Data sources: NISR, DHS, HMIS, Sentinel</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
