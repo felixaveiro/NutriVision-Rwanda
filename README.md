@@ -464,3 +464,22 @@ If you'd like, I can:
 - Or add basic unit tests for `lib/survey-data.ts` parsing.
 
 Tell me which follow-up you prefer and I'll implement it next.
+
+
+### **Getting Help**
+- **Issues**: [GitHub Issues](https://github.com/felixaveiro/NutriVision-Rwanda/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/felixaveiro/NutriVision-Rwanda/discussions)
+
+ - **Email**: [bikofelix2020@gmail.com](mailto:bikofelix2020@gmail.com)
+
+
+## 📞 Contact
+
+**Project Maintainer**: Felix Bikorimana  
+**Portfolio**: [https://rugangazi.netlify.app/](https://rugangazi.netlify.app/)  
+**Email**: [bikofelix2020@gmail.com](mailto:bikofelix2020@gmail.com)  
+**LinkedIn**: [Felix Bikorimana](https://www.linkedin.com/in/felix-bikorimana-1972ba261/)  
+**GitHub**: [@felixaveiro](https://github.com/felixaveiro)  
+**Phone**: +250780941222
+
+---
