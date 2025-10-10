@@ -1,8 +1,18 @@
 # NutriVision Rwanda
 
-NutriVision Rwanda is a data-driven Next.js application built to analyze and predict district-level nutritional risk indicators in Rwanda. The project uses Groq-style AI calls to summarize and predict outcomes from survey data, and provides dashboards, interactive maps, and policy briefs.
+NutriVision Rwanda is a data-driven Next.js application that ingests, validates, and analyzes household and community survey data to produce district-level nutritional risk assessments and actionable guidance. The system combines deterministic data processing (CSV parsing, statistical aggregation, and rule-based scoring) with optional AI analysis (Groq-style chat completions) to produce validated predictions, concise executive summaries, and targeted policy recommendations. The user-facing app offers interactive maps, charts, and pages for insights, interventions, predictions, and policy briefs, while server-side API routes handle data parsing, batching, AI prompt orchestration, and schema validation.
 
 This README documents the repository layout, local setup, API routes, AI integration details, troubleshooting tips, developer notes, API contracts, zod schemas, prompt strategy, and deployment/CI guidance.
+
+Mission
+-------
+
+To empower policymakers, health practitioners, and community organizations in Rwanda with reliable, data-driven insights that improve nutrition outcomes at the district level. We deliver clear, validated predictions and practical recommendations so stakeholders can prioritize interventions, allocate resources efficiently, and measure impact over time.
+
+Vision
+------
+
+To be the trusted national platform for nutrition intelligence in Rwanda — enabling evidence-based decisions that reduce malnutrition and strengthen community resilience through accessible data, explainable AI insights, and open collaboration between government, NGOs, and researchers.
 
 ## Table of contents
 
