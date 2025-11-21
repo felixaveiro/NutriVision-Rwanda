@@ -4,6 +4,7 @@ import { RiskChart } from "@/components/risk-chart"
 import { FileText, TrendingUp, Target, MapPin, BarChart3 } from "lucide-react"
 import Link from "next/link"
 
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#005BAB] via-[#0078D4] to-[#E6E8EB]">
@@ -27,6 +28,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
+        
       </section>
 
       {/* Main Content */}
@@ -36,26 +38,44 @@ export default function HomePage() {
           <StatsOverview />
         </div>
 
-        {/* Map and Chart Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Map and Chart Grid - 50/50 Split */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Interactive Map */}
-          <div className="lg:col-span-2 bg-white/95 backdrop-blur rounded-xl shadow-lg p-4">
-            <div className="flex items-center gap-2 mb-4">
-              <MapPin className="w-5 h-5 text-[#005BAB]" />
-              <h3 className="text-lg font-semibold text-gray-800">Malnutrition Hotspot Map</h3>
+          <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl border-2 border-blue-100 overflow-hidden hover:shadow-3xl transition-all duration-300 flex flex-col">
+            <div className="bg-gradient-to-r from-[#005BAB] to-[#0078D4] px-4 py-3 flex-shrink-0">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">Malnutrition Hotspot Map</h3>
+                  <p className="text-xs text-blue-100">Interactive district-level visualization</p>
+                </div>
+              </div>
             </div>
-            <div className="h-[600px] rounded-lg overflow-hidden">
-              <MapView />
+            <div className="flex-1 p-3">
+              <div className="h-full rounded-xl overflow-hidden border-2 border-gray-100 shadow-inner">
+                <MapView />
+              </div>
             </div>
           </div>
 
           {/* Risk Chart */}
-          <div className="lg:col-span-1 bg-white/95 backdrop-blur rounded-xl shadow-lg p-4">
-            <div className="flex items-center gap-2 mb-4">
-              <BarChart3 className="w-5 h-5 text-[#005BAB]" />
-              <h3 className="text-lg font-semibold text-gray-800">Risk Analysis</h3>
+          <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl border-2 border-blue-100 overflow-hidden hover:shadow-3xl transition-all duration-300 flex flex-col">
+            <div className="bg-gradient-to-r from-[#005BAB] to-[#0078D4] px-4 py-3 flex-shrink-0">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
+                  <BarChart3 className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">Risk Analysis</h3>
+                  <p className="text-xs text-blue-100">Top 10 highest risk districts</p>
+                </div>
+              </div>
             </div>
-            <RiskChart />
+            <div className="flex-1 p-3">
+              <RiskChart />
+            </div>
           </div>
         </div>
 

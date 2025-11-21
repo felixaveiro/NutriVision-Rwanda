@@ -60,6 +60,18 @@ export function MapView() {
 
   const getRiskSize = (riskScore: number) => {
     if (!riskScore || isNaN(riskScore)) return 50
+    // Responsive sizing based on viewport
+    if (typeof window !== 'undefined') {
+      const width = window.innerWidth
+      if (width < 640) {
+        // Mobile: smaller markers
+        return Math.max(28, Math.min(65, riskScore * 0.7))
+      } else if (width < 1024) {
+        // Tablet: medium markers
+        return Math.max(35, Math.min(90, riskScore * 0.95))
+      }
+    }
+    // Desktop: larger markers
     return Math.max(40, Math.min(120, riskScore * 1.2))
   }
 
@@ -102,8 +114,11 @@ export function MapView() {
 
   if (loading) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-muted/30 rounded-lg">
-        <div className="text-muted-foreground">Loading map data...</div>
+      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 rounded-lg border border-slate-200">
+        <div className="text-center space-y-3">
+          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-[#005BAB] mx-auto"></div>
+          <p className="text-slate-600 text-sm sm:text-base font-medium">Loading map data...</p>
+        </div>
       </div>
     )
   }
@@ -112,25 +127,12 @@ export function MapView() {
     <div className="relative w-full h-full">
       <div
         ref={mapRef}
-        className="w-full h-full bg-muted/30 rounded-lg relative overflow-hidden"
+        className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 rounded-lg relative overflow-visible border-2 border-slate-200 shadow-inner"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23666666' fillOpacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23666666' fillOpacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       >
-        {/* Rwanda map outline */}
-        <svg
-          viewBox="0 0 800 600"
-          className="absolute inset-0 w-full h-full"
-          style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.1))" }}
-        >
-          <path
-            d="M 300 150 L 500 140 L 550 200 L 540 350 L 480 420 L 380 430 L 300 400 L 260 320 L 270 220 Z"
-            fill="currentColor"
-            className="text-muted/20"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-        </svg>
+        {/* Rwanda map outline removed for cleaner view */}
 
         {/* District markers */}
         {predictions.map((prediction) => {
@@ -142,7 +144,7 @@ export function MapView() {
           return (
             <div
               key={prediction.district}
-              className="absolute cursor-pointer transition-all hover:scale-110"
+              className="absolute cursor-pointer transition-all duration-200 hover:scale-125 hover:z-20 group"
               style={{
                 left: `${x}px`,
                 top: `${y}px`,
