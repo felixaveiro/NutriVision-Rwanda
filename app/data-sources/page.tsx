@@ -174,9 +174,15 @@ export default function DataSourcesPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold text-gray-900">{data.summary.temporalCoverage.span} <span className="text-2xl text-gray-500">years</span></div>
+              <div className="text-3xl font-bold text-gray-900">
+                {data.summary.temporalCoverage.earliest > 0 && data.summary.temporalCoverage.latest > 0 
+                  ? `${data.summary.temporalCoverage.earliest} - ${data.summary.temporalCoverage.latest}`
+                  : 'Loading...'}
+              </div>
               <p className="mt-2 text-sm text-gray-500">
-                {data.summary.temporalCoverage.earliest} - {data.summary.temporalCoverage.latest}
+                {data.summary.temporalCoverage.span > 0 
+                  ? `${data.summary.temporalCoverage.span} year${data.summary.temporalCoverage.span !== 1 ? 's' : ''} of NISR data`
+                  : 'NISR Dataset coverage'}
               </p>
             </CardContent>
           </Card>

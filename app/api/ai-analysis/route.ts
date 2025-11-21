@@ -97,9 +97,9 @@ export async function POST(request: Request) {
       districtContext = districtContext.filter((d) => requestedDistricts!.includes(d.name))
     }
 
-  const analysisPromptBase = `You are an expert epidemiologist analyzing malnutrition data for Rwanda. 
+  const analysisPromptBase = `You are an expert epidemiologist analyzing malnutrition data for Rwanda from NISR Dataset (National Institute of Statistics of Rwanda). 
 
-SURVEY DATA ANALYSIS:
+NISR DATASET SURVEY DATA ANALYSIS:
 - Total surveys: ${patterns.totalSurveys}
 - Recent surveys: ${patterns.recentSurveys}
 - Data quality: ${patterns.dataQualityScore.toFixed(1)}%

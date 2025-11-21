@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       throw new Error("GROQ_API_KEY not configured")
     }
 
-    const systemPrompt = `You are a nutrition policy expert analyzing data from Rwanda's National Institute of Statistics. Generate a comprehensive, evidence-based policy brief based on real survey data and district risk assessments.
+    const systemPrompt = `You are a nutrition policy expert analyzing data from NISR Dataset (Rwanda's National Institute of Statistics of Rwanda). Generate a comprehensive, evidence-based policy brief based on real NISR survey data and district risk assessments.
 
 Your analysis should be:
 - Data-driven and specific to the provided districts
